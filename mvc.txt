@@ -1,0 +1,61 @@
+Initialize {
+    dotnet new mvc
+
+    template -> wwwroot
+}
+
+Database {
+    dotnet ef dbcontext scaffold 'Server=localhost,1433;Database=Demo;User Id=sa;Password=Japtor@1999;TrustServerCertificate=True;' Microsoft.EntityFrameworkCore.SqlServer -o Models/Tables -f
+}
+
+Start {
+    dotnet watch --launch-profile https
+}
+
+Models {
+    // Blog.cs
+    public partial class Blog {
+        public string IdBlog { get; set; } = null!;
+
+        public string? Title { get; set; }
+
+        public string? Description { get; set; }
+
+        public virtual ICollection<Blog> Blogs { get; set; } = new List<Blog>();
+    }
+
+    // Database.cs
+    {
+        public virtual DbSet<City> Cities { get; set; }
+    }
+}
+
+Views {
+    @model mvc.Controllers.AdminController.BlogViewModel
+
+    @Model.blog.IdBlog, @Model.blog.Title, @Model.blog.Description
+
+    public partial class BlogViewModel {
+        public Blog blog { get; set; }
+    }
+}
+
+Controllers {
+    using (var db = new DatabaseContext()) {
+
+        // Select Data
+        var blogs = db.Blogs
+            .Where(b => b.Rating > 3)
+            .OrderBy(b => b.Url)
+            .ToList();
+
+        // Saving Data
+        var blog = new Blog {
+            Url = "gorth.org";
+        }
+        db.Blogs.Add(blog);
+        db.SaveChanges();
+
+
+    }
+}

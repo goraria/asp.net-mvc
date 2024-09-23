@@ -1,0 +1,80 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model mvc.Controllers.AdminController.CitiesViewModel;
+
+<main>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+        <p class="mb-4">
+            @*DataTables is a third party plugin that is used to generate the demo table below.
+            For more information about DataTables, please visit the*@
+            Japtor Goraria el Destinia Ichibulup de Gortheia
+            @*<a target="_blank" href="https://datatables.net">official DataTables documentation</a>.*@
+        </p>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">DataTables Example de Japtor</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Name</th>
+                                <th>Country</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <a href="/admin/createCategory" class="btn btn-warning btn-icon-split" style="margin-bottom: 20px">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                                <span class="text" style="width: 96px">Addition</span>
+                            </a>
+                            @foreach (var item in Model.cities) {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.Country</td>
+                                    <td>
+                                        <a href="/admin/updateCategory?id=@item.IdCity" class="btn btn-info btn-icon-split">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-edit"></i>
+                                            </span>
+                                            <span class="text" style="width: 96px">Edit</span>
+                                        </a>
+                                        <a href="/admin/deleteCategory?id=@item.IdCity" class="btn btn-danger btn-icon-split">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-trash"></i>
+                                            </span>
+                                            <span class="text" style="width: 96px">Delete</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+</main>
